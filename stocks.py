@@ -1,7 +1,7 @@
 #Create a purchase history report that computes the full purchase price (shares times dollars) 
 #for each block of stock and uses the stockDict to look up the full company name.
 
-#ticker symbols and company names
+#verb: LIST the ticker symbols and the company names
 stockDict = { 
 'GM':'General Motors',
 'CAT':'Caterpillar', 
@@ -11,8 +11,7 @@ stockDict = {
 'GOOGL':"Google"
 }
 
-
-#ticker symbols, number of shares, dates and price.
+#verb: LIST ticker symbols, number of shares, dates and price.
 purchases = [ 
 ( 'CAT', 100, '1-apr-1999', 24 ),
 ( 'GM', 100, '10-sep-2001', 48 ),
@@ -24,27 +23,19 @@ purchases = [
 ( 'GOOGL', 400, '1-jul-1998', 87 )
 ]
 
-# for purchase in purchases:
-# 	ticker = purchase[0]
-
-# 	full_company_name = stockDict[ticker]
-
-# 	number_of_shares = purchase[1]
-# 	purchase_price = purchase[3]
-# 	full_purchase_price = number_of_shares * purchase_price
-
-# 	#print("%.2f" % full_purchase_price)
-# 	print("I purchased {0} stock for ${1}".format(full_company_name, full_purchase_price))
-
-
 #Create a second purchase summary that which accumulates total investment by ticker symbol.
+#LOOP through the ticker symbols, SAVE the total investment to a variable, and STORE those values
+
 #creating a dict where the key is the ticker and the value is the list of blocks purchased.
+#CREATE dictionary and append the ticker key : blocks purchased value
+
 #The program makes one pass through the data to create the dict. 
 #A pass through the dict can then create a report showing each ticker symbol and all blocks of stock.
+#DISPLAY the dictionary
 
-portfolio = dict()
-for purchase in purchases:
-	ticker = purchase[0]
+portfolio = dict()				#CREATE
+for purchase in purchases:		#LOOP through ticker, shares, dates and prices
+	ticker = purchase[0]		
 
 	full_company_name = stockDict[ticker]
 	number_of_shares = purchase[1]
@@ -54,16 +45,16 @@ for purchase in purchases:
 	try:
 		portfolio[ticker].append(purchase)	#append the purchase to the ticker list
 	except KeyError:
-		portfolio[ticker] = list()			#if key doesn't exist yet, create it
-		portfolio[ticker].append(purchase)
+		portfolio[ticker] = list()			#if key doesn't exist yet, CREATE it
+		portfolio[ticker].append(purchase)	#ADD purchase line to dictionary
 
-print("I purchased {} stock for ${}".format(full_company_name, full_purchase_price))
+print("I purchased {} stock for ${}\n".format(full_company_name, full_purchase_price))
 
-for ticker,purchases in portfolio.items():
-	print("----- {} ------".format(ticker))
+for ticker,purchases in portfolio.items():	#LOOP through ticker and purchases
+	print("----- {} ------".format(ticker))	
 	total_stock_value = 0
-	for purchase in purchases:
-		total_stock_value += purchase[1] * purchase[3]
+	for purchase in purchases:				#LOOP through ticker, shares, dates and prices
+		total_stock_value += purchase[1] * purchase[3]	#ADD shares and prices to total
 		print("   {}".format(purchase))
 	print("Total stock: ${}\n\n".format(total_stock_value))
 
